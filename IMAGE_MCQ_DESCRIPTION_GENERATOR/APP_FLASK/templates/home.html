@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <title>Automated Description and MCQ Generation From Image using Deep Learning</title>
+    <style>
+     
+
+        #title {
+            text-align: center;
+            margin-top: 50px;
+            color: rgba(11, 5, 5, 0.934);
+            font-weight: bold;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 1px #000, 
+               3px 3px 5px rgb(167, 178, 204); 
+        }
+        .container{
+            display:flex;
+            align-items: center;
+            justify-content: space-around;
+            padding-top: 8%;
+        }
+        .desc,.mcq{
+            height: 250px;
+            width:500px;
+            background-color: red;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+
+        .desc{
+            background:linear-gradient(to right,rgb(213, 34, 180),pink);
+        }
+
+        .mcq{
+            background: linear-gradient(to right,rgb(129, 151, 212),pink);
+        }
+        #btn{
+            height: 3rem;
+            width: 6rem;
+            margin-top: 50px;
+            border-radius: 10px;
+            font-size: 20px;
+            border:none;
+            cursor: pointer;
+            background-color: #0b75d9;
+            color: #fff;
+            font-weight: bold;
+            transition: all .3s ease-out;
+        }
+        #btn:hover{
+            border-radius: 25px;
+        }
+        .description{
+            width: 80%;
+            height: 100px;
+            margin:150px auto 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(360deg,rgb(203, 206, 212,0.5),rgb(203, 206, 212,0.5));
+            border-radius: 15px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="title">Automated Description and MCQ Generation From Image using Deep Learning</h1>
+    <div class="container">
+        <div class="desc">
+            <form method = "post" action ="/generate"> 
+            <h3>IMAGE DESCRIPTION GENERATOR</h3>
+                <button id="btn">Go</button></form>
+        </div>
+        <div class="mcq">
+            <form method = "post" action ="/process"> 
+            <h3>IMAGE MCQ GENERATOR</h3>
+            <button id="btn">Go</button></form>
+        </div>
+    </div>
+    <div class="description">
+        <p>Automated description and question generation from images is a challenging task that requires a combination of computer
+            vision, natural language processing, and machine learning techniques.This propose a new
+            approach to generate multiple-choice questions from images using deep learning.</p>
+    </div><br>
+ 
+</body>
+
+</html>

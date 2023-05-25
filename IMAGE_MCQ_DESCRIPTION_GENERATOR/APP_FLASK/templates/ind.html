@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <title>Image Caption Generator</title>
+    <style>
+       
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 1px #000, 
+               3px 3px 5px blue; 
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #imagePreview {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #imagePreview img{
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+        #captionOutput {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+            font-size: 1.5rem;
+            background-color: black;
+            width:80%;
+            display: block;
+            margin: auto;
+        }
+        input{
+            background-color: white;
+        }
+        .btn{
+            padding:5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            background:transparent;
+            color:white;
+            font-weight: 600;
+            transition: all .3s ease-out;
+            border: 1px solid white;
+            font-size: 15px;
+        }
+        .btn:hover{
+            background-color: white;
+            color: black;
+        }
+        input{
+            cursor: pointer;
+        }
+        #fileInput{
+            display:none;
+        }
+        label{
+            margin-right: 25px;
+            padding: 10px 15px;
+            border-radius: 10px;
+            color: #0e152a;
+            background-color:rgb(241, 245, 247);
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Automated Image Description Generator</h1>
+    <form method="post" action="/generate" enctype="multipart/form-data" onsubmit="return generateCaption()">
+        <label for="fileInput">Upload Image <i class="fa-solid fa-arrow-up-from-bracket"></i></label>
+        <input type="file" name="file" id="fileInput">
+        <button type="submit" class="btn">Generate Description</button>
+    </form>
+    <div id="imagePreview"></div> <!-- Added div for image preview -->
+    <div id="captionOutput"></div>
+    <!-- {% if description %}
+        <h2>Generated Caption:</h2>
+        <p>{{ description }}</p>
+    {% endif %} -->
+
+    <script>
+        function generateCaption() {
+            // Display loading message
+            $("#captionOutput").html("<p>Loading...</p>");
+            // Submit form with image file
+            var form = new FormData();
+            var fileInput = document.getElementById('fileInput');
+            form.append('file', fileInput.files[0]);
+            $.ajax({
+                type: 'POST',
+                url: '/generate',
+                data: form,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    // Display generated caption
+                    
+                    $("#captionOutput").html("<p><strong>Generated Description:</strong> " + response.description + "</p>");
+                },
+                error: function(xhr, status, error) {
+                    // Display error message
+                    $("#captionOutput").html("<p>Error: " + error + "</p>");
+                }
+            });
+
+            return false;
+        }
+
+        // Function to display image preview
+        function showImagePreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $("#imagePreview").html("<img src='" + e.target.result + "' width='300' height='300'>");
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Trigger image preview on file input change
+        $("#fileInput").change(function() {
+            showImagePreview(this);
+        });
+
+       
+    </script>
+    
+   
+</body>
+</html>

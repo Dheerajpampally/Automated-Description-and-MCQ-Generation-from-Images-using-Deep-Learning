@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MCQ Generator</title>
+    <style>
+       
+        h1 {
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 1px #000, 
+               3px 3px 5px blue; 
+        }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        label {
+            color: white;
+            font-size: 1.2rem;
+        }
+        input[type="file"] {
+            margin-top: 10px;
+        }
+        input[type="submit"] {
+            padding:5px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            background:transparent;
+            color:white;
+            font-weight: 600;
+            transition: all .3s ease-out;
+            border: 1px solid white;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+        input[type="submit"]:hover {
+            background-color: white;
+            color: black;
+        }
+        ul {
+            color: black;
+        }
+        p {
+            color: black;
+        }
+        .result-container {
+            background-color: rgba(201, 205, 217, 0.836);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .generated-question {
+            color: black;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        .generated-options {
+            color: black;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .generated-answer {
+            color: black;
+            font-weight: bold;
+        }
+        .option-list {
+            list-style-type: lower-alpha;
+        }
+        #imagePreview {
+            text-align: center;
+            margin-top: 20px;
+        }
+        #fileInput{
+            display:none;
+        }
+        #imagePreview img{
+            border-radius: 5px;
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        }
+        input{
+            cursor: pointer;
+        }
+        input{
+            background-color: white;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>MCQ Generator</h1>
+    <form action="/process" method="post" enctype="multipart/form-data">
+        <label for="file">Upload an Image:</label>
+        <input type="file" name="file" id="file" accept="image/jpeg, image/png">
+        <br>
+        <input type="submit" value="Generate MCQ">
+    </form>
+    <br>
+    <div id="imagePreview"></div>
+    <div class="result-container">
+        {% if image_url %}
+            <h2 class="generated-image">Image:</h2>
+            <img src="{{ image_url }}" alt="Generated Image" width="300">
+        {% endif %}
+        {% if question %}
+            <h2 class="generated-question">Generated Question:</h2>
+            <p> Q).{{ question }}</p>
+            <div class="generated-options">
+                <h2>Options:</h2>
+                <ul class="option-list">
+                    {% for option in options %}
+                        <li>{{ option }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <h2 class="generated-answer">Answer:</h2>
+            <p><li>{{ answer }}</li></p>
+            <h3>Description:</h3>
+            {% if description %}
+            <p>" {{ description }} "</p>
+            {% endif %}
+        {% endif %}
+    </div><br>
+    
+    <script>
+        function showImagePreview(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+    
+                reader.onload = function(e) {
+                    $("#imagePreview").html("<img src='" + e.target.result + "' width='300' height='300'>");
+                }
+    
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    
+        // Trigger image preview on file input change
+        $("#fileInput").change(function() {
+            showImagePreview(this);
+        });
+    </script>
+</body>
+</html>
