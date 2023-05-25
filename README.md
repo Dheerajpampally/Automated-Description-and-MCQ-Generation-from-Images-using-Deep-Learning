@@ -9,9 +9,9 @@ or <br>
 <a href="https://www.kaggle.com/datasets/ming666/flicker8k-dataset">download from kaggle</a>
 
 # Model
-  <li>Image features are extracted using Xception Model</li><br>
-  <li>Used sequential CNN and LSTM model to combine to build Image description model<li><br>
+  <li>Image features are extracted using Xception Model</li>
+  <li>Used sequential CNN and LSTM model to combine to build Image description model<li>
 
 # Generate fill-in-the blanks MCQ from generated Description
-  <li>Used POS tagging to identify the entities and then replaced with a blank space<li><br>
-  <li>fastText model implemented in genism is used to generate answer options similar to the entities<li><br>
+  <li>Used POS tagging to identify the entities and then replaced with a blank space<li>
+  <li>fastText model implemented in genism is used to generate answer options similar to the entities<li>
